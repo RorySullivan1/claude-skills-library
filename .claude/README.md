@@ -1,42 +1,47 @@
-# `.claude/` — project infrastructure
+# `.claude/` — the factory's design environment
 
-This directory holds the typed building blocks Claude Code uses for a project.
-Each subdirectory is a distinct *layer* with a distinct job. The layers compose.
+This is **not** a consumer `.claude/`. The assets a project runs (skills, hooks,
+workflows, …) live in `../example-project/.claude/`. *This* directory is the
+tooling we use to **author** those assets — it answers "how do we build a good
+skill / hook / workflow?", not "do the domain work."
 
-## The composability stack
+It mirrors the standard layer taxonomy so the meta-tooling is organized the same
+way the products are. Each layer here is scoped to authoring its matching
+downstream asset type.
+
+## The layers (authoring scope)
 
 ```
-hooks      ← enforcement, underneath everything (Claude cannot skip these)
+hooks      ← enforcement for the factory itself (lint/validate authored assets)
 ─────────────────────────────────────────────────────────────────────────
 workflows  ▸  commands  ▸  agents  ▸  skills
-(orchestrate)  (one-shot)   (isolated)  (expertise)
+(author pipelines) (one-shot authoring prompts) (authoring subagents) (meta-skills)
 ```
 
-- **hooks/** — Deterministic shell scripts run by the harness on lifecycle events
-  (`PreToolUse`, `PostToolUse`, `SessionStart`, …). They are the enforcement layer
-  *underneath* the prompt stack — the model cannot choose to skip them. Use for
-  anything that must *always* happen: formatting, branch guards, write protection,
-  cache warming. Configured in `settings.json`.
-- **workflows/** — Multi-step autonomous orchestrations. Claude executes a scripted
-  sequence that can loop, branch, and spawn agents. Each is a markdown file.
-- **commands/** — Single-shot, stateless prompt templates — saved prompts you'd
-  otherwise retype. One file per command (`/<name>`).
-- **agents/** — Isolated subagents spawned with clean context. They do focused work
-  and return only a summary, so they don't bleed context into the main session.
-- **skills/** — Domain-expertise bundles that tell Claude *how to think and behave*
-  for a task type. Applied within a session or an agent's context. One folder per
-  skill containing `SKILL.md`; the folder name equals the skill's `name:` frontmatter.
+- **skills/** — Meta-skills: domain expertise on *writing assets* — how to craft a
+  `SKILL.md`, frontmatter conventions, when something should be a skill vs. a
+  context doc vs. a command.
+- **agents/** — Isolated subagents for authoring jobs (e.g. draft-a-skill,
+  audit-an-asset) that return a summary without polluting the main session.
+- **commands/** — Single-shot authoring prompts (`/new-skill`, `/validate-asset`).
+- **workflows/** — Multi-step authoring orchestrations (scaffold → draft → review →
+  place into `example-project/` or a downstream repo).
+- **hooks/** — Deterministic checks the harness runs while authoring — e.g. verify
+  a skill folder name matches its `name:` frontmatter, lint markdown. Wired in
+  `settings.json`.
 
 ## Supporting files
 
-- **context/** — Reference docs (architecture notes, schemas, stack instructions).
-  `CLAUDE.md` points here; Claude deep-reads only what's relevant to the task. See
-  `context/README.md` for the manifest.
-- **settings.json** — Permissions, model, and hook configuration.
-- **DECISIONS.md** — Log of structural/architecture decisions and their rationale.
+- **context/** — Authoring standards and conventions the factory itself follows
+  (the rules a meta-skill would cite). See `context/README.md`.
+- **settings.json** — Permissions, model, and hook configuration for this repo.
+- **DECISIONS.md** — Log of structural decisions and their rationale.
 
-## Status in this repo
+## Status
 
-`skills/` and `context/` are populated. `hooks/`, `commands/`, `agents/`, and
-`workflows/` are intentional **scaffolds** — each has a README describing what it's
-for, ready to fill when a concrete need appears. No example content is fabricated.
+Every layer here is an **intentional stub** — one README describing what the layer
+will hold once we write the first meta-tool. No authoring tooling is fabricated
+yet. The taxonomy is in place so each piece has an obvious home when a concrete
+need appears. For the *consumer-facing* explanation of these same layers (what
+they mean in a project that runs them), see
+`../example-project/.claude/README.md`.

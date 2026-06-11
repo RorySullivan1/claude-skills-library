@@ -1,23 +1,20 @@
-# agents/
+# agents/ — authoring subagents (factory scope)
 
-**Isolated parallel workers.** Subagents spawned with a clean context that do
-focused work and return only a summary — so they don't bleed context into the main
-session. Good for noisy, error-prone, or narrowly-scoped jobs.
+The **factory** `agents/` layer. Not domain agents — these are isolated subagents
+for **authoring jobs**: focused workers that help build assets and return only a
+summary, keeping the main authoring session clean.
+
+## What goes here
+
+- A `draft-skill` agent — takes a task description, returns a first-pass `SKILL.md`.
+- An `asset-auditor` agent — reads a skill/hook/workflow and reports convention
+  violations without bleeding the whole file into context.
 
 ## Format
 
-- One markdown file per agent: `<name>.md`.
-- Frontmatter defines the agent: `name`, `description` (when to use it), and
-  optionally `tools` (a restricted allowlist) and `model`.
-- The body is the agent's system prompt — its focused mandate.
-
-## Typical uses
-
-- A data/fetcher agent that owns one external API and its quirks.
-- An auth/worker agent that isolates token errors from the main session.
-- A runner agent that executes a task and returns just the result summary.
+One markdown file per agent: `<name>.md`. Frontmatter (`name`, `description`, and
+optionally `tools`, `model`); the body is the agent's mandate.
 
 ## Status
 
-**Empty scaffold.** No agents defined yet. Add a `<name>.md` with frontmatter to
-define one.
+**Empty stub.** No authoring agents defined yet.

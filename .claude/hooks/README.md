@@ -1,24 +1,23 @@
-# hooks/
+# hooks/ — authoring guardrails (factory scope)
 
-**Lifecycle enforcement layer.** Deterministic shell scripts the harness runs on
-events — the model cannot skip them. This is the floor underneath the whole prompt
-stack. Use hooks for anything that must *always* execute.
+The **factory** `hooks/` layer. Deterministic scripts the harness runs *while we
+author assets in this repo* — the enforcement floor for the factory itself, not
+hooks shipped to a consumer project. The model cannot skip them.
+
+## What goes here
+
+Checks that must always run when editing assets here, e.g.:
+
+- `PostToolUse` → validate that a skill folder name matches its `name:` frontmatter.
+- `PostToolUse` → lint/format authored markdown.
+- `PreToolUse` → guard the branch name / block stray writes.
 
 ## Format
 
-- One executable script per hook (`.sh`, or any interpreter via shebang).
-- Wired up in `../settings.json` under the `hooks` key, keyed by event
-  (`PreToolUse`, `PostToolUse`, `SessionStart`, `Stop`, …) with an optional matcher.
-- A `PreToolUse` hook that exits non-zero **vetoes** the tool call.
-
-## Typical uses
-
-- `PreToolUse` → block writes to protected paths/endpoints.
-- `PostToolUse` → auto-format edited files (e.g. `black` + `flake8`).
-- `SessionStart` → warm caches, refresh tokens.
-- `PreToolUse` → guard branch names / reject commits to `main`.
+One executable script per hook, wired in `../settings.json` under `hooks` by event
+(`PreToolUse`, `PostToolUse`, `SessionStart`, …). A non-zero `PreToolUse` vetoes the
+call.
 
 ## Status
 
-**Empty scaffold.** No hooks defined yet. Add a script here and register it in
-`settings.json` when a need appears.
+**Empty stub.** No authoring hooks defined yet.

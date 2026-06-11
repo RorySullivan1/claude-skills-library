@@ -1,23 +1,20 @@
-# workflows/
+# workflows/ — authoring pipelines (factory scope)
 
-**Multi-step autonomous orchestration.** Claude executes a scripted sequence that
-can loop, branch, and spawn agents — designed to run largely unattended. Where a
-command is one shot, a workflow is a whole pipeline.
+The **factory** `workflows/` layer. Multi-step orchestrations for **producing
+assets** end to end — where a command is one shot, a workflow runs the whole build.
+
+## What goes here
+
+- `author-skill` — scaffold → draft `SKILL.md` → audit against conventions → place
+  the finished bundle into `example-project/.claude/skills/` (or a downstream repo).
+- `harvest-context` — turn a stack brief into a context doc, validate, file it.
 
 ## Format
 
-- One markdown file per workflow: `<name>.md`.
-- The body lays out the ordered steps, the agents/commands each step invokes, the
-  inputs and outputs, and the success/stop conditions.
-- Reference `../agents/` and `../commands/` rather than re-describing them.
-
-## Typical uses
-
-- A scheduled report: gather data → score/analyze → draft → deliver.
-- A triage pipeline: read items → prioritize → assign → post a digest.
-- A refresh job: fetch source data → recompute → write outputs → flag anomalies.
+One markdown file per workflow: `<name>.md` — ordered steps, the agents/commands
+each step invokes (reference `../agents/` and `../commands/`), inputs/outputs, and
+stop conditions.
 
 ## Status
 
-**Empty scaffold.** No workflows defined yet. Add a `<name>.md` describing the
-sequence to create one.
+**Empty stub.** No authoring workflows defined yet.

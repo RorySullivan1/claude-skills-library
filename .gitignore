@@ -1,0 +1,11 @@
+# Personal, machine-local Claude memory — never committed.
+# Anchored to the repo root so it only ignores the factory's own personal file.
+# (example-project/CLAUDE.local.md is intentionally tracked as a labeled sample.)
+/CLAUDE.local.md
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/

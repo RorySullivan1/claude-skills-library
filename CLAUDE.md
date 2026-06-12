@@ -23,6 +23,11 @@ authoring standards and conventions. Today these layers are **stubs** (a README
 per layer describing what it will become); no meta-tooling is fabricated until a
 concrete need appears. See `.claude/README.md`.
 
+Two layers are live rather than stubs: **`rules/`** holds the factory's
+always-binding constraints (honored every session — see the *Operating rules*
+section below), and **`memory/`** is the append-only session journal that replaced
+the old `DECISIONS.md`.
+
 ### `example-project/` — the produced layout
 
 A mock downstream repo that shows what the factory ships. It's laid out exactly
@@ -35,8 +40,10 @@ example-project/
 └── .claude/
     ├── skills/          ← 10 domain skill bundles (the worked examples)
     ├── context/         ← 5 stack-brief docs + manifest
+    ├── rules/           ← always-binding constraints (sample)
+    ├── memory/          ← append-only session journal (sample)
     ├── hooks/ commands/ agents/ workflows/   ← scaffolds, ready to fill
-    ├── settings.json · README.md · DECISIONS.md
+    ├── settings.json · README.md
 ```
 
 The skills and context docs that used to live at the repo root now live here, as
@@ -68,14 +75,20 @@ predate the skill split. They're reference material: drop one into a project's
 `CLAUDE.md` (or `.claude/context/`) to give Claude a full operating brief for that
 stack. See `example-project/.claude/context/README.md`.
 
-## Conventions
+## Operating rules
 
-- **Skill folder = `name:` frontmatter.** Renaming a skill means renaming both.
-- **Context docs are kebab-case** (`c-csharp-project-instructions.md`).
-- **Contents are authoritative as-is.** When updating a skill, edit its `SKILL.md`
-  in place; don't fork copies.
-- **Factory vs. product.** Author the *how-to* (meta-tooling) under `.claude/`;
-  the produced assets and their showcase live under `example-project/`.
+The binding constraints for this repo live in `.claude/rules/` — one short,
+single-theme file each, and **always in force** every session:
+
+- **`repo-structure.md`** — factory-vs-product layout, no `src/`, stubs are
+  scaffolded not fabricated, preserve history on moves, one source of truth for
+  history (`memory/`) and rules (`rules/`).
+- **`asset-conventions.md`** — skill folder == `name:` frontmatter, kebab-case
+  context docs, edit assets in place, trigger-laden skill `description:`.
+
+Honor every rule in those files. The decision history that explains *why* the repo
+is shaped this way lives in `.claude/memory/`; consult it for background, but a
+memory note never overrides a rule.
 
 ## Using an asset elsewhere
 

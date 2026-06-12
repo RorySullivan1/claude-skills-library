@@ -38,13 +38,16 @@ See `.claude/context/README.md` for whole-stack operating briefs:
 - C/C# brief — `c-csharp-project-instructions.md`
 - (also: C++ and VBA briefs)
 
-## Decisions
-See `.claude/DECISIONS.md` for the decision history.
+## Operating rules
+Always-binding constraints live in `.claude/rules/` (honored every session):
+- `environment-constraints.md` — the ClickOnce / no-admin / pinned-Python limits
+  under *Constraints* above.
+- `code-conventions.md` — branch per change, conventional commits, format before
+  commit, skill folder == `name:` frontmatter.
 
-## Conventions
-- Branch per change; conventional-commit-style messages.
-- Python formatted with the project's configured formatter/linter before commit.
-- Skill folder name always equals the skill's `name:` frontmatter.
+## History
+The decision journal lives in `.claude/memory/` (append-only; replaces the old
+`DECISIONS.md`). Consult it for background — a memory note never overrides a rule.
 
 ## Compact Instructions
 On compaction, preserve: the ClickOnce deployment constraint, the no-admin-rights

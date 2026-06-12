@@ -37,12 +37,16 @@ workflows  ▸  commands  ▸  agents  ▸  skills
 - **context/** — Reference docs (architecture notes, schemas, stack instructions).
   `CLAUDE.md` points here; Claude deep-reads only what's relevant to the task. See
   `context/README.md` for the manifest.
+- **rules/** — Always-binding constraints, honored every session (`CLAUDE.md`
+  declares them mandatory). See `rules/README.md`.
+- **memory/** — Append-only session journal: what was done and why. Replaces the old
+  `DECISIONS.md`. See `memory/README.md`.
 - **settings.json** — Permissions, model, and hook configuration.
-- **DECISIONS.md** — Log of structural/architecture decisions and their rationale.
 
 ## Status in this project
 
-`skills/` (10 bundles) and `context/` (5 stack briefs) are populated. `hooks/`,
-`commands/`, `agents/`, and `workflows/` are intentional **scaffolds** — each has a
-README describing what it's for, ready to fill when a concrete need appears. No
-example content is fabricated.
+`skills/` (10 bundles) and `context/` (5 stack briefs) are populated, and `rules/`
+and `memory/` carry sample entries that show their shape. `hooks/`, `commands/`,
+`agents/`, and `workflows/` are intentional **scaffolds** — each has a README
+describing what it's for, ready to fill when a concrete need appears. No example
+content is fabricated.

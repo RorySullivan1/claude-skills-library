@@ -34,8 +34,11 @@ workflows  ▸  commands  ▸  agents  ▸  skills
 
 - **context/** — Authoring standards and conventions the factory itself follows
   (the rules a meta-skill would cite). See `context/README.md`.
+- **rules/** — Always-binding constraints for the factory (`CLAUDE.md` declares them
+  mandatory). See `rules/README.md`.
+- **memory/** — Append-only session journal: what was done and why. The decision
+  history once kept in `DECISIONS.md` now lives here. See `memory/README.md`.
 - **settings.json** — Permissions, model, and hook configuration for this repo.
-- **DECISIONS.md** — Log of structural decisions and their rationale.
 
 ## Status
 
